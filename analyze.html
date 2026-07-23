@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analyze Route — StepShield</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<style>
+  .leaflet-container{ font-family: 'Poppins', sans-serif; }
+  .ss-marker{ display:flex; align-items:center; justify-content:center; }
+</style>
+</head>
+<body>
+
+<div class="app-topbar">
+  <div class="container app-topbar-inner">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 3L34 8V19C34 28 28 34.5 20 37C12 34.5 6 28 6 19V8L20 3Z" fill="#FF5347"/>
+        <path d="M20 3L34 8V19C34 28 28 34.5 20 37V3Z" fill="#FF8A80"/>
+        <circle cx="20" cy="19" r="6.5" stroke="white" stroke-width="2"/>
+      </svg>
+      StepShield
+    </a>
+    <div class="app-nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="analyze.html" class="active">Analyze Route</a>
+      <a href="profile.html">Profile</a>
+    </div>
+    <div class="user-chip" id="userChip">
+      <div class="user-avatar">SC</div>
+      <span>Sarah</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="user-menu" id="userMenu">
+        <a href="profile.html">View Profile</a>
+        <a href="dashboard.html">Dashboard</a>
+        <button id="logoutBtn">Log Out</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="app-main">
+  <div class="container">
+    <a href="dashboard.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Dashboard
+    </a>
+    <div class="page-head">
+      <h1>Analyze Route</h1>
+      <p>Enter your destination — StepShield's AI will score your route for safety before you leave.</p>
+    </div>
+
+    <div class="analyze-grid">
+      <!-- LEFT: MAP -->
+      <div class="map-panel">
+        <div class="map-controls">
+          <div class="location-field origin">
+            <span class="dot"></span>
+            <input type="text" id="originInput" placeholder="Detecting your location…" readonly>
+            <span class="status" id="originStatus">Locating…</span>
+          </div>
+          <div class="location-field dest" style="position:relative;">
+            <span class="dot"></span>
+            <input type="text" id="destInput" placeholder="Search your destination…" autocomplete="off">
+            <div class="autocomplete-list" id="destSuggestions"></div>
+          </div>
+        </div>
+        <div id="map"></div>
+        <div class="map-footer">
+          <div class="route-meta" id="routeMeta">Search a destination to preview your route.</div>
+          <button class="btn btn-primary btn-sm" id="analyzeBtn" disabled>Analyze Route</button>
+        </div>
+      </div>
+
+      <!-- RIGHT: AI PANEL -->
+      <div class="ai-panel">
+        <div class="ai-panel-head">
+          <span class="ai-dot"></span>
+          <strong style="font-size:13px; letter-spacing:.04em; text-transform:uppercase; color:var(--gray-500);">AI Safety Analysis</strong>
+        </div>
+
+        <div class="ai-empty" id="aiEmpty">
+          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#D9DCE1"><path d="M4 12h4l2-7 4 14 2-7h4" stroke-width="1.6"/></svg>
+          <h3>No route analyzed yet</h3>
+          <p>Choose a destination and press Analyze Route to see your Safety Score.</p>
+        </div>
+
+        <div class="ai-loading" id="aiLoading">
+          <div class="spinner"></div>
+          <div class="typing-text" id="typingText">Checking current conditions…</div>
+        </div>
+
+        <div class="ai-results" id="aiResults">
+          <div class="score-row">
+            <div class="score-ring-wrap">
+              <svg width="96" height="96" viewBox="0 0 96 96">
+                <circle cx="48" cy="48" r="42" fill="none" stroke="#EEF0F3" stroke-width="9"/>
+                <circle id="scoreRing" cx="48" cy="48" r="42" fill="none" stroke="#FF5347" stroke-width="9" stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264"/>
+              </svg>
+              <div class="score-num" id="scoreNum">0</div>
+            </div>
+            <div>
+              <span class="risk-badge" id="riskBadge">LOW RISK</span>
+              <div style="font-size:13px; color:var(--gray-500);">Safety Score out of 100</div>
+            </div>
+          </div>
+
+          <div style="font-size:12.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--gray-500); margin-bottom:12px;">Today's Conditions</div>
+          <div class="conditions-list" id="conditionsList"></div>
+
+          <div style="font-size:12.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--gray-500); margin-bottom:10px;">Recommendation</div>
+          <div class="rec-box" id="recBox"></div>
+
+          <div class="alt-route-box" id="altRouteBox" style="display:none;">
+            <strong>Safer Alternative</strong>
+            <span id="altRouteText"></span>
+          </div>
+
+          <div class="ai-actions">
+            <button class="btn btn-primary btn-sm" id="saveRouteBtn">Save This Route</button>
+            <button class="btn btn-ghost btn-sm" id="reanalyzeBtn">Analyze Again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMUNITY REPORTS -->
+    <div class="community-section" id="community">
+      <span class="eyebrow">Community Reports</span>
+      <h2 style="font-size:24px; margin-top:10px;">Help other walkers stay safe.</h2>
+      <p style="color:var(--gray-700); margin-top:8px; font-size:14.5px; max-width:560px;">Report a hazard along your current route. Reports are shown here and factored into safety explanations nearby (prototype uses mock data).</p>
+
+      <div class="report-type-grid">
+        <button class="report-type-btn" data-report="Poor lighting" data-icon="💡">
+          <span style="font-size:22px;">💡</span> Poor lighting
+        </button>
+        <button class="report-type-btn" data-report="Cars not yielding" data-icon="🚗">
+          <span style="font-size:22px;">🚗</span> Cars not yielding
+        </button>
+        <button class="report-type-btn" data-report="Broken crosswalk" data-icon="🚸">
+          <span style="font-size:22px;">🚸</span> Broken crosswalk
+        </button>
+        <button class="report-type-btn" data-report="Construction" data-icon="🚧">
+          <span style="font-size:22px;">🚧</span> Construction
+        </button>
+        <button class="report-type-btn" data-report="Unsafe intersection" data-icon="⚠️">
+          <span style="font-size:22px;">⚠️</span> Unsafe intersection
+        </button>
+      </div>
+
+      <div class="reports-feed" id="reportsFeed"></div>
+    </div>
+  </div>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/script.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/analyze.js"></script>
+</body>
+</html>

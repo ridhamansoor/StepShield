@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StepShield — Walk Smarter. Walk Safer.</title>
+<meta name="description" content="StepShield uses AI to analyze real-time conditions and recommend the safest walking route — before you leave home.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 3L34 8V19C34 28 28 34.5 20 37C12 34.5 6 28 6 19V8L20 3Z" fill="#FF5347"/>
+        <path d="M20 3L34 8V19C34 28 28 34.5 20 37V3Z" fill="#FF8A80"/>
+        <circle cx="20" cy="19" r="6.5" stroke="white" stroke-width="2"/>
+        <path d="M20 15V19L22.5 21.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      StepShield
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#mission">Mission</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="login.html" class="btn btn-ghost">Log In</a>
+      <a href="signup.html" class="btn btn-primary">Sign Up</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy reveal in">
+      <span class="eyebrow">AI Pedestrian Safety</span>
+      <h1 style="margin-top:16px;">Walk Smarter.<br><span class="accent">Walk Safer.</span></h1>
+      <p class="lead">StepShield helps pedestrians discover safer walking routes before leaving home — analyzing weather, lighting, crosswalks and live community reports with AI.</p>
+      <div class="hero-cta">
+        <a href="analyze.html" class="btn btn-primary">Analyze My Route</a>
+        <a href="#about" class="btn btn-ghost">Learn More</a>
+      </div>
+      <div class="hero-stats-inline">
+        <div><strong data-count="91">0</strong><span>Avg. Safety Score</span></div>
+        <div><strong data-count="120">0</strong><span>Cities Mapped</span></div>
+        <div><strong data-count="24">0</strong><span>AI Checks / Route</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal in" style="transition-delay:.15s;">
+      <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+        <!-- dotted walking route -->
+        <path class="route-dash" d="M40 460 C 140 420, 120 320, 220 300 S 340 220, 320 140 S 420 80, 470 60"
+              stroke="#FF8A80" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- start marker -->
+        <circle cx="40" cy="460" r="9" fill="#111111"/>
+        <circle class="pulse-ring" cx="40" cy="460" r="9" fill="#111111" opacity=".4"/>
+        <!-- destination shield -->
+        <g class="float-y" transform="translate(470,60)">
+          <circle r="26" fill="#FFFFFF" stroke="#FF5347" stroke-width="3"/>
+          <path d="M0 -10L9 -6V2C9 8 5 12 0 14C-5 12 -9 8 -9 2V-6L0 -10Z" fill="#FF5347"/>
+        </g>
+        <!-- central shield gauge -->
+        <g transform="translate(260,270)">
+          <circle r="140" fill="#FFFFFF" />
+          <circle r="140" fill="none" stroke="#EEF0F3" stroke-width="1"/>
+          <path d="M0 -110L86 -76V6C86 62 46 100 0 118C-46 100 -86 62 -86 6V-76L0 -110Z" fill="#F8F9FA" stroke="#F1D9D7" stroke-width="1"/>
+          <circle class="gauge-ring" r="80" fill="none" stroke="#F1D9D7" stroke-width="10"/>
+          <circle class="gauge-ring gauge-fill" r="80" fill="none" stroke="#FF5347" stroke-width="10" stroke-linecap="round" stroke-dasharray="251"/>
+          <text x="0" y="-6" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="46" font-weight="700" fill="#111111">91</text>
+          <text x="0" y="22" text-anchor="middle" font-family="Poppins, sans-serif" font-size="13" font-weight="600" fill="#7A7F87" letter-spacing="1">SAFETY SCORE</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- ============ STATS ============ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why It Matters</span>
+      <h2 style="font-size:38px; margin-top:14px;">Pedestrian safety is a solvable problem.</h2>
+      <p>Every year, thousands of preventable pedestrian injuries happen on routes that had a safer alternative just blocks away.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card reveal">
+        <div class="stat-number"><span data-count="7000">0</span>+</div>
+        <div class="stat-label">Pedestrian deaths every year</div>
+      </div>
+      <div class="stat-card reveal" style="transition-delay:.1s;">
+        <div class="stat-number"><span data-count="71000">0</span>+</div>
+        <div class="stat-label">Pedestrian injuries annually</div>
+      </div>
+      <div class="stat-card reveal" style="transition-delay:.2s;">
+        <div class="stat-number">AI</div>
+        <div class="stat-label">Powered safer-route recommendations</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">How It Works</span>
+      <h2 style="font-size:38px; margin-top:14px;">Three steps to a safer walk.</h2>
+    </div>
+    <div class="steps-row">
+      <div class="step-card reveal">
+        <div class="step-glyph">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z" stroke="white" stroke-width="1.8"/><circle cx="12" cy="10" r="2.4" stroke="white" stroke-width="1.8"/></svg>
+        </div>
+        <h3>① Enter destination</h3>
+        <p>Drop a pin or search your destination — StepShield finds your current location automatically.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.1s;">
+        <div class="step-glyph">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 12h4l2-7 4 14 2-7h4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>② AI analyzes the route</h3>
+        <p>Weather, time of day, lighting, road type, crosswalks and community reports are scored in real time.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.2s;">
+        <div class="step-glyph">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>③ Receive the safest route</h3>
+        <p>Get a clear Safety Score, risk level, plain-language explanation, and a safer alternative if one exists.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INNOVATION ============ -->
+<section class="section">
+  <div class="container feature-split">
+    <div class="reveal">
+      <span class="eyebrow">The Innovation</span>
+      <h2 style="font-size:34px; margin-top:14px;">Fastest isn't always safest.</h2>
+      <p style="color:var(--gray-700); margin-top:14px; font-size:16px;">Every other navigation app optimizes for time. StepShield is the first to optimize for you — scoring each route against the conditions that actually cause pedestrian injuries.</p>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+          <div><h4>Live condition scoring</h4><p>Weather, visibility and time-of-day recalculated on every request.</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+          <div><h4>Community-verified reports</h4><p>Real pedestrians flag broken crosswalks, poor lighting and unsafe intersections.</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+          <div><h4>Plain-language explanations</h4><p>No black box — every score tells you exactly why.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="mock-panel reveal" style="transition-delay:.1s;">
+      <div class="eyebrow" style="color:var(--red-pastel);">Live Preview</div>
+      <div style="display:flex; align-items:baseline; gap:10px; margin-top:14px;">
+        <span style="font-family:var(--font-data); font-size:52px; font-weight:700;">91</span>
+        <span style="color:rgba(255,255,255,.6); font-size:14px;">/ 100 · LOW RISK</span>
+      </div>
+      <div style="margin-top:22px; display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; justify-content:space-between; padding:12px 16px; background:rgba(255,255,255,.06); border-radius:12px; font-size:14px;"><span>☀️ Clear skies</span><span style="color:#4ADE80;">Good</span></div>
+        <div style="display:flex; justify-content:space-between; padding:12px 16px; background:rgba(255,255,255,.06); border-radius:12px; font-size:14px;"><span>🚦 4 marked crosswalks</span><span style="color:#4ADE80;">Good</span></div>
+        <div style="display:flex; justify-content:space-between; padding:12px 16px; background:rgba(255,255,255,.06); border-radius:12px; font-size:14px;"><span>💡 Street lighting</span><span style="color:#FFD166;">Fair</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MISSION / SDG ============ -->
+<section class="section" id="mission">
+  <div class="container">
+    <div class="mission reveal">
+      <div class="mission-grid">
+        <div>
+          <span class="eyebrow" style="color:var(--red-pastel);">Our Mission</span>
+          <h2>Built for UN Sustainable Development Goal 11.</h2>
+          <p>StepShield supports the global push toward sustainable cities and communities — making streets safer and more accessible for everyone who travels on foot.</p>
+        </div>
+        <div class="sdg-list">
+          <div class="sdg-item"><span class="sdg-badge">11.2</span><div><strong>Accessible transportation</strong><span>Safe, affordable transport systems for all, improving road safety.</span></div></div>
+          <div class="sdg-item"><span class="sdg-badge">11.7</span><div><strong>Safer public spaces</strong><span>Universal access to safe, inclusive streets and public areas.</span></div></div>
+          <div class="sdg-item"><span class="sdg-badge">11.B</span><div><strong>Resilient cities</strong><span>Data-driven planning that reduces preventable pedestrian harm.</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="cta-band reveal">
+      <span class="eyebrow" style="color:rgba(255,255,255,.85);">Get Started</span>
+      <h2>Your safest route is one tap away.</h2>
+      <p>Sign up free and let StepShield analyze your very first walk.</p>
+      <a href="signup.html" class="btn btn-dark">Create Free Account</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">
+          <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 3L34 8V19C34 28 28 34.5 20 37C12 34.5 6 28 6 19V8L20 3Z" fill="#FF5347"/>
+            <path d="M20 3L34 8V19C34 28 28 34.5 20 37V3Z" fill="#FF8A80"/>
+          </svg>
+          StepShield
+        </a>
+        <p>AI-powered pedestrian safety, one route at a time.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="index.html#features">Features</a>
+        <a href="analyze.html">Analyze Route</a>
+        <a href="index.html#mission">Mission</a>
+      </div>
+      <div class="footer-col">
+        <h5>Account</h5>
+        <a href="login.html">Log In</a>
+        <a href="signup.html">Sign Up</a>
+        <a href="dashboard.html">Dashboard</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="mailto:hello@stepshield.app">hello@stepshield.app</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 StepShield. All rights reserved.</p>
+      <div class="social-row">
+        <a href="#" aria-label="Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97V21h-4V9z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile — StepShield</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+<div class="app-topbar">
+  <div class="container app-topbar-inner">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 3L34 8V19C34 28 28 34.5 20 37C12 34.5 6 28 6 19V8L20 3Z" fill="#FF5347"/>
+        <path d="M20 3L34 8V19C34 28 28 34.5 20 37V3Z" fill="#FF8A80"/>
+        <circle cx="20" cy="19" r="6.5" stroke="white" stroke-width="2"/>
+      </svg>
+      StepShield
+    </a>
+    <div class="app-nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="analyze.html">Analyze Route</a>
+      <a href="profile.html" class="active">Profile</a>
+    </div>
+    <div class="user-chip" id="userChip">
+      <div class="user-avatar">SC</div>
+      <span>Sarah</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="user-menu" id="userMenu">
+        <a href="profile.html">View Profile</a>
+        <a href="analyze.html">Analyze Route</a>
+        <button id="logoutBtn">Log Out</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="app-main">
+  <div class="container">
+    <a href="dashboard.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Dashboard
+    </a>
+
+    <div class="page-head">
+      <h1>Profile</h1>
+      <p>Your account details and walking history.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1fr 2fr; gap:24px;" id="profileGrid">
+      <div class="stat-card" style="text-align:center;">
+        <div class="user-avatar mx-auto" style="width:72px; height:72px; font-size:24px; margin-bottom:16px;" id="profileAvatar">SC</div>
+        <h3 id="profileName" style="font-size:18px;">Sarah Chen</h3>
+        <p style="color:var(--gray-500); font-size:13.5px; margin-top:4px;" id="profileEmail">sarah@example.com</p>
+        <button class="btn btn-ghost btn-block" style="margin-top:20px;" id="logoutBtn2">Log Out</button>
+      </div>
+
+      <div>
+        <div class="stat-strip" style="margin-top:0;">
+          <div class="strip-card">
+            <div class="n" id="pAnalyses">0</div>
+            <div class="l">Analyses run</div>
+          </div>
+          <div class="strip-card">
+            <div class="n" id="pSaved">0</div>
+            <div class="l">Saved routes</div>
+          </div>
+          <div class="strip-card">
+            <div class="n" id="pMember">—</div>
+            <div class="l">Member since</div>
+          </div>
+        </div>
+
+        <div id="saved" style="margin-top:34px;">
+          <h3 style="font-size:17px; margin-bottom:16px;">Saved Routes</h3>
+          <div id="savedRoutesList" style="display:flex; flex-direction:column; gap:12px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="js/script.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  (function(){
+    ssRequireAuth();
+    const user = ssCurrentUser();
+    if(!user) return;
+
+    const initials = user.name.trim().split(/\s+/).map(p => p[0]).slice(0,2).join('').toUpperCase();
+    document.getElementById('profileAvatar').textContent = initials;
+    document.getElementById('profileName').textContent = user.name;
+    document.getElementById('profileEmail').textContent = user.email;
+    document.getElementById('pAnalyses').textContent = user.analyses || 0;
+    document.getElementById('pSaved').textContent = (user.savedRoutes || []).length;
+    const created = user.createdAt ? new Date(user.createdAt) : new Date();
+    document.getElementById('pMember').textContent = created.toLocaleDateString('en-US', { month:'short', year:'numeric' });
+
+    const list = document.getElementById('savedRoutesList');
+    const routes = user.savedRoutes || [];
+    if(routes.length === 0){
+      list.innerHTML = `
+        <div class="empty-state">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D9DCE1"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" stroke-width="1.6"/></svg>
+          <h3>No saved routes yet</h3>
+          <p>Analyze a route and save it to see it here.</p>
+        </div>`;
+    } else {
+      list.innerHTML = routes.map(r => `
+        <div class="stat-card" style="display:flex; justify-content:space-between; align-items:center; padding:20px 24px;">
+          <div>
+            <strong style="font-size:14.5px;">${r.from} → ${r.to}</strong>
+            <div style="color:var(--gray-500); font-size:12.5px; margin-top:4px;">Saved ${new Date(r.savedAt).toLocaleDateString()}</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:var(--font-data); font-weight:700; color:${r.score >= 80 ? '#2E7D32' : r.score >= 55 ? '#B8860B' : '#C0392B'};">${r.score}</div>
+            <div style="font-size:11px; color:var(--gray-500);">${r.risk}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('logoutBtn2').addEventListener('click', ssLogout);
+  })();
+</script>
+</body>
+</html>
